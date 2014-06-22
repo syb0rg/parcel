@@ -33,10 +33,10 @@ typedef enum
 typedef struct
 {
 	JsonType type;
-	ssize_t start;
-	ssize_t end;
-	ssize_t size;
-	ssize_t parent;
+	intmax_t start;
+	intmax_t end;
+	intmax_t size;
+	intmax_t parent;
 } __attribute__((__packed__)) JsonToken;
 
 /**
@@ -48,9 +48,9 @@ typedef struct
  */
 typedef struct
 {
-	ssize_t pos;
-	ssize_t toknext;
-	ssize_t toksuper;
+	intmax_t pos;
+	intmax_t toknext;
+	intmax_t toksuper;
 } __attribute__((__packed__)) JsonParser;
 
 /**

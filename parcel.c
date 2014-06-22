@@ -2,9 +2,8 @@
  * @file json.c
  * @brief JSON Parser
  */
-#include <stdlib.h>
 #include <string.h>
-#include "json.h"
+#include "parcel.h"
 
 #define TOKEN_NUMBER 100
 
@@ -24,7 +23,7 @@ const char* getItemFromJSON(const char *json, const char *item)
 	memset(&tokens, 0, sizeof(tokens));
 	int err = json_parse(&p, json, tokens, TOKEN_NUMBER);
 	if (err) return NULL;
-	for(int i = 0; i < TOKEN_NUMBER; ++i)
+	for(size_t i = 0; i < TOKEN_NUMBER; ++i)
 	{
 		JsonToken *key = &tokens[i];
 		if ((key->end - key->start) < 0) return NULL;
@@ -45,7 +44,7 @@ const char* getItemFromJSON(const char *json, const char *item)
  * @param tokens
  * @param tokenNum
  */
-static JsonToken *json_initToken(JsonParser *parser, JsonToken *tokens, ssize_t tokenNum)
+static JsonToken *json_initToken(JsonParser *parser, JsonToken *tokens, intmax_t tokenNum)
 {
 	if (parser->toknext >= tokenNum) return NULL;
 	JsonToken *tok = &tokens[parser->toknext++];
@@ -63,7 +62,7 @@ static JsonToken *json_initToken(JsonParser *parser, JsonToken *tokens, ssize_t 
  * @param start
  * @param end
  */
-static void json_fillToken(JsonToken *token, JsonType type, ssize_t	start, ssize_t end)
+static void json_fillToken(JsonToken *token, JsonType type, intmax_t start, intmax_t end)
 {
 	token->type = type;
 	token->start = start;
@@ -79,10 +78,10 @@ static void json_fillToken(JsonToken *token, JsonType type, ssize_t	start, ssize
  * @param tokens
  * @param tokenNum
  */
-static JsonError json_parsePrimitive(JsonParser *parser, const char *js, JsonToken *tokens, ssize_t tokenNum)
+static JsonError json_parsePrimitive(JsonParser *parser, const char *js, JsonToken *tokens, intmax_t tokenNum)
 {
 	JsonToken *token;
-	ssize_t start = parser->pos;
+	intmax_t start = parser->pos;
 
 	for (; js[parser->pos] != '\0'; parser->pos++)
 	{
@@ -128,10 +127,10 @@ found:
  * @param tokens
  * @param tokenNum
  */
-static JsonError json_parseString(JsonParser *parser, const char *js, JsonToken *tokens, ssize_t tokenNum)
+static JsonError json_parseString(JsonParser *parser, const char *js, JsonToken *tokens, intmax_t tokenNum)
 {
 	JsonToken *token;
-	ssize_t start = parser->pos;
+	intmax_t start = parser->pos;
 
 	parser->pos++;
 
@@ -272,7 +271,7 @@ JsonError json_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsi
 		}
 	}
 
-	for (ssize_t i = parser->toknext - 1; i >= 0; i--)
+	for (intmax_t i = parser->toknext - 1; i >= 0; i--)
 	{
 		// Unmatched opened object or array
 		if (tokens[i].start != -1 && tokens[i].end == -1) return JSON_ERROR_PART;

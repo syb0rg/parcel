@@ -81,5 +81,3 @@ This approach provides enough information for parsing any JSON data and makes it
  - Finish documentation.
  
  - Add a more flexable JSON item retrieval function.
-  
- - Add support for Travis

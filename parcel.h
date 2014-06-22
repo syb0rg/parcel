@@ -57,18 +57,18 @@ typedef struct
 /**
  * Create JSON parser over an array of tokens
  */
-void json_initParser(JsonParser *parser);
+void parcel_initParser(JsonParser *parser);
 
 /**
  * Run JSON parser. It parses a JSON data string into and array of tokens, each describing
  * a single JSON object.
  */
-JsonError json_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsigned int tokenNum);
+JsonError parcel_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsigned int tokenNum);
 
 /**
  * Fetch data from the given item in the supplied JSON file.
  */
-const char* getItemFromJSON(const char *json, const char *item);
+const char* parcel_getItemFromJSON(const char *json, const char *item);
 
 
-#endif // _json_H_
+#endif // _parcel_H_

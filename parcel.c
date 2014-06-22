@@ -14,14 +14,14 @@
  * @param item The item in which the data is to be fetched
  * @return The data contained in the first occurance of item
  */
-const char* getItemFromJSON(const char *json, const char *item)
+const char* parcel_getItemFromJSON(const char *json, const char *item)
 {
 	if (!json) return NULL;
 	JsonParser p;
-	json_initParser(&p);
+	parcel_initParser(&p);
 	JsonToken tokens[TOKEN_NUMBER];
 	memset(&tokens, 0, sizeof(tokens));
-	int err = json_parse(&p, json, tokens, TOKEN_NUMBER);
+	int err = parcel_parse(&p, json, tokens, TOKEN_NUMBER);
 	if (err) return NULL;
 	for(size_t i = 0; i < TOKEN_NUMBER; ++i)
 	{
@@ -38,13 +38,13 @@ const char* getItemFromJSON(const char *json, const char *item)
 }
 
 /**
- * @fn static JsonToken *json_allocJsonToken(JsonParser *parser, JsonToken *tokens, size_t tokenNum)
+ * @fn static JsonToken *parcel_allocJsonToken(JsonParser *parser, JsonToken *tokens, size_t tokenNum)
  * @brief Allocates a fresh unused token from the token pull.
  * @param parser An initialized JsonParser structure
  * @param tokens
  * @param tokenNum
  */
-static JsonToken *json_initToken(JsonParser *parser, JsonToken *tokens, intmax_t tokenNum)
+static JsonToken* parcel_initToken(JsonParser *parser, JsonToken *tokens, intmax_t tokenNum)
 {
 	if (parser->toknext >= tokenNum) return NULL;
 	JsonToken *tok = &tokens[parser->toknext++];
@@ -55,14 +55,14 @@ static JsonToken *json_initToken(JsonParser *parser, JsonToken *tokens, intmax_t
 }
 
 /**
- * @fn static void json_fillToken(JsonToken *token, JsonType type, int start, int end)
+ * @fn static void parcel_fillToken(JsonToken *token, JsonType type, int start, int end)
  * @brief Fills token type and boundaries.
  * @param token
  * @param type
  * @param start
  * @param end
  */
-static void json_fillToken(JsonToken *token, JsonType type, intmax_t start, intmax_t end)
+static void parcel_fillToken(JsonToken *token, JsonType type, intmax_t start, intmax_t end)
 {
 	token->type = type;
 	token->start = start;
@@ -71,14 +71,14 @@ static void json_fillToken(JsonToken *token, JsonType type, intmax_t start, intm
 }
 
 /**
- * @fn static JsonError json_parsePrimitive(JsonParser *parser, const char *js, JsonToken *tokens, size_t tokenNum)
+ * @fn static JsonError parcel_parsePrimitive(JsonParser *parser, const char *js, JsonToken *tokens, size_t tokenNum)
  * @brief Fills next available token with JSON primitive.
  * @param parser An initialized JsonParser structure
  * @param js
  * @param tokens
  * @param tokenNum
  */
-static JsonError json_parsePrimitive(JsonParser *parser, const char *js, JsonToken *tokens, intmax_t tokenNum)
+static JsonError parcel_parsePrimitive(JsonParser *parser, const char *js, JsonToken *tokens, intmax_t tokenNum)
 {
 	JsonToken *token;
 	intmax_t start = parser->pos;
@@ -107,27 +107,27 @@ static JsonError json_parsePrimitive(JsonParser *parser, const char *js, JsonTok
 	return JSON_ERROR_PART;
 
 found:
-	token = json_initToken(parser, tokens, tokenNum);
+	token = parcel_initToken(parser, tokens, tokenNum);
 	if (!token)
 	{
 		parser->pos = start;
 		return JSON_ERROR_NOMEM;
 	}
-	json_fillToken(token, JSON_PRIMITIVE, start, parser->pos);
+	parcel_fillToken(token, JSON_PRIMITIVE, start, parser->pos);
 	token->parent = parser->toksuper;
 	parser->pos--;
 	return JSON_SUCCESS;
 }
 
 /**
- * @fn static JsonError json_parseString(JsonParser *parser, const char *js, JsonToken *tokens, size_t tokenNum)
+ * @fn static JsonError parcel_parseString(JsonParser *parser, const char *js, JsonToken *tokens, size_t tokenNum)
  * @brief Fills next token with JSON string.
  * @param parser An initialized JsonParser structure
  * @param js
  * @param tokens
  * @param tokenNum
  */
-static JsonError json_parseString(JsonParser *parser, const char *js, JsonToken *tokens, intmax_t tokenNum)
+static JsonError parcel_parseString(JsonParser *parser, const char *js, JsonToken *tokens, intmax_t tokenNum)
 {
 	JsonToken *token;
 	intmax_t start = parser->pos;
@@ -142,13 +142,13 @@ static JsonError json_parseString(JsonParser *parser, const char *js, JsonToken 
 		// Quote: end of string
 		if (c == '\"')
 		{
-			token = json_initToken(parser, tokens, tokenNum);
+			token = parcel_initToken(parser, tokens, tokenNum);
 			if (!token)
 			{
 				parser->pos = start;
 				return JSON_ERROR_NOMEM;
 			}
-			json_fillToken(token, JSON_STRING, start+1, parser->pos);
+			parcel_fillToken(token, JSON_STRING, start+1, parser->pos);
 			token->parent = parser->toksuper;
 			return JSON_SUCCESS;
 		}
@@ -185,14 +185,14 @@ static JsonError json_parseString(JsonParser *parser, const char *js, JsonToken 
 }
 
 /**
- * @fn JsonError json_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsigned int tokenNum)
+ * @fn JsonError parcel_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsigned int tokenNum)
  * @brief Parse JSON string and fill tokens.
  * @param parser An initialized JsonParser structure
  * @param js
  * @param tokens
  * @param tokenNum
  */
-JsonError json_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsigned int tokenNum)
+JsonError parcel_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsigned int tokenNum)
 {
 	JsonError r;
 	JsonToken *token;
@@ -206,7 +206,7 @@ JsonError json_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsi
 		{
 			case '{':
 			case '[':
-				token = json_initToken(parser, tokens, tokenNum);
+				token = parcel_initToken(parser, tokens, tokenNum);
 				if (!token) return JSON_ERROR_NOMEM;
 				if (parser->toksuper != -1)
 				{
@@ -236,7 +236,7 @@ JsonError json_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsi
 				}
 				break;
 			case '\"':
-				r = json_parseString(parser, js, tokens, tokenNum);
+				r = parcel_parseString(parser, js, tokens, tokenNum);
 				if (r < 0) return r;
 				if (parser->toksuper != -1) tokens[parser->toksuper].size++;
 				break;
@@ -261,7 +261,7 @@ JsonError json_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsi
 			case 't':
 			case 'f':
 			case 'n':
-				r = json_parsePrimitive(parser, js, tokens, tokenNum);
+				r = parcel_parsePrimitive(parser, js, tokens, tokenNum);
 				if (r < 0) return r;
 				if (parser->toksuper != -1) tokens[parser->toksuper].size++;
 				break;
@@ -281,11 +281,11 @@ JsonError json_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsi
 }
 
 /**
- * @fn void json_initParser(JsonParser *parser)
+ * @fn void parcel_initParser(JsonParser *parser)
  * @brief Creates a new parser based over a given buffer with an array of tokens available.
  * @param parser A JsonParser structure to initialize
  */
-void json_initParser(JsonParser *parser)
+void parcel_initParser(JsonParser *parser)
 {
 	parser->pos = 0;
 	parser->toknext = 0;

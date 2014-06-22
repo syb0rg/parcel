@@ -16,7 +16,7 @@
  */
 const char* parcel_getItemFromJSON(const char *json, const char *item)
 {
-	if (!json) return NULL;
+	if (!json || !text) return NULL;
 	JsonParser p;
 	parcel_initParser(&p);
 	JsonToken tokens[TOKEN_NUMBER];

@@ -31,7 +31,7 @@ parcel splits a JSON file into tokens.  Consider the following example of JSON d
 	         "212 555-1234",
 	         "646 555-4567"
 	     ]
-	 }
+	}
 	 
  parcel will split that data into the following tokens based on [the JSON values](http://www.w3schools.com/json/json_syntax.asp):
  

@@ -12,7 +12,7 @@ An efficient and functional JSON parsing library written in C.  parcel was desig
  
  - Follows strict JSON syntax
  
- - Includes Doxygen commends for generating documentation
+ - Includes Doxygen comments for generating documentation
 
 ### Design
 

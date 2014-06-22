@@ -2,7 +2,6 @@
  * @file json.c
  * @brief JSON Parser
  */
-#include <stdint.h>
 #include <string.h>
 #include "parcel.h"
 

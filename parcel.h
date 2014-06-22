@@ -5,6 +5,7 @@
 #ifndef JSON_H
 #define JSON_H
 
+#include <stdint.h>
 #include <unistd.h>
 
 /**

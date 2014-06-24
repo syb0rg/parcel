@@ -83,3 +83,5 @@ This approach provides enough information for parsing any JSON data and makes it
  - Add a more flexable JSON item retrieval function.
  
  - Support Unicode characters.
+ 
+ - Add example usage to README.

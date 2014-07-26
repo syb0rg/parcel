@@ -47,7 +47,7 @@ const char* parcel_getItemFromJSON(const char *json, const char *item)
 static ParcelToken* parcel_initToken(ParcelParser *parser, ParcelToken *tokens, intmax_t tokenNum)
 {
 	if (parser->toknext >= tokenNum) return NULL;
-	ParcelToken *tok = &tokens[parser->toknext++];
+	ParcelToken *tok = &tokens[++parser->toknext];
 	tok->start = tok->end = -1;
 	tok->size = 0;
 	tok->parent = -1;
@@ -83,7 +83,7 @@ static ParcelError parcel_parsePrimitive(ParcelParser *parser, const char *js, P
 	ParcelToken *token;
 	intmax_t start = parser->pos;
 
-	for (; js[parser->pos] != '\0'; parser->pos++)
+	for (; js[parser->pos] != '\0'; ++parser->pos)
 	{
 		switch (js[parser->pos])
 		{
@@ -115,7 +115,7 @@ found:
 	}
 	parcel_fillToken(token, PARCEL_PRIMITIVE, start, parser->pos);
 	token->parent = parser->toksuper;
-	parser->pos--;
+	--parser->pos;
 	return PARCEL_SUCCESS;
 }
 
@@ -132,10 +132,10 @@ static ParcelError parcel_parseString(ParcelParser *parser, const char *js, Parc
 	ParcelToken *token;
 	intmax_t start = parser->pos;
 
-	parser->pos++;
+	++parser->pos;
 
 	// Skip starting quote
-	for (; js[parser->pos] != '\0'; parser->pos++)
+	for (; js[parser->pos] != '\0'; ++parser->pos)
 	{
 		char c = js[parser->pos];
 
@@ -156,7 +156,7 @@ static ParcelError parcel_parseString(ParcelParser *parser, const char *js, Parc
 		// Backslash: Quoted symbol expected
 		if (c == '\\')
 		{
-			parser->pos++;
+			++parser->pos;
 			switch (js[parser->pos])
 			{
 				// Allowed escaped symbols
@@ -197,7 +197,7 @@ ParcelError parcel_parse(ParcelParser *parser, const char *js, ParcelToken *toke
 	ParcelError r;
 	ParcelToken *token;
 
-	for (; js[parser->pos] != '\0'; parser->pos++)
+	for (; js[parser->pos] != '\0'; ++parser->pos)
 	{
 		char c = js[parser->pos];;
 		ParcelType type;
@@ -210,7 +210,7 @@ ParcelError parcel_parse(ParcelParser *parser, const char *js, ParcelToken *toke
 				if (!token) return PARCEL_ERROR_NOMEM;
 				if (parser->toksuper != -1)
 				{
-					tokens[parser->toksuper].size++;
+					++tokens[parser->toksuper].size;
 					token->parent = parser->toksuper;
 				}
 				token->type = (c == '{' ? PARCEL_OBJECT : PARCEL_ARRAY);
@@ -238,7 +238,7 @@ ParcelError parcel_parse(ParcelParser *parser, const char *js, ParcelToken *toke
 			case '\"':
 				r = parcel_parseString(parser, js, tokens, tokenNum);
 				if (r < 0) return r;
-				if (parser->toksuper != -1) tokens[parser->toksuper].size++;
+				if (parser->toksuper != -1) ++tokens[parser->toksuper].size;
 				break;
 			case '\t':
 			case '\r':
@@ -263,7 +263,7 @@ ParcelError parcel_parse(ParcelParser *parser, const char *js, ParcelToken *toke
 			case 'n':
 				r = parcel_parsePrimitive(parser, js, tokens, tokenNum);
 				if (r < 0) return r;
-				if (parser->toksuper != -1) tokens[parser->toksuper].size++;
+				if (parser->toksuper != -1) ++tokens[parser->toksuper].size;
 				break;
 			default:
 				return PARCEL_ERROR_INVAL;
@@ -271,7 +271,7 @@ ParcelError parcel_parse(ParcelParser *parser, const char *js, ParcelToken *toke
 		}
 	}
 
-	for (intmax_t i = parser->toknext - 1; i >= 0; i--)
+	for (intmax_t i = parser->toknext - 1; i >= 0; --i)
 	{
 		// Unmatched opened object or array
 		if (tokens[i].start != -1 && tokens[i].end == -1) return PARCEL_ERROR_PART;

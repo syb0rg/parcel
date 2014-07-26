@@ -1,9 +1,9 @@
 /**
- * @file json.h
- * @brief JSON structures, enums, and relevent function declarations.
+ * @file PARCEL_H
+ * @brief parcel structures, enums, and relevent function prototypes.
  */
-#ifndef JSON_H
-#define JSON_H
+#ifndef PARCEL_H
+#define PARCEL_H
 
 #include <stdint.h>
 #include <unistd.h>
@@ -15,15 +15,15 @@
  * 	- String
  * 	- Other primitive: number, boolean (true/false) or null
  */
-typedef enum { JSON_PRIMITIVE, JSON_OBJECT, JSON_ARRAY, JSON_STRING } JsonType;
+typedef enum { PARCEL_PRIMITIVE, PARCEL_OBJECT, PARCEL_ARRAY, PARCEL_STRING } ParcelType;
 
 typedef enum
 {
-	JSON_ERROR_NOMEM = -1, // Not enough tokens were provided
-	JSON_ERROR_INVAL = -2, // Invalid character inside JSON string
-	JSON_ERROR_PART = -3, // The string is not a full JSON packet, more bytes expected
-	JSON_SUCCESS = 0 // Everthing is fine
-} JsonError;
+	PARCEL_ERROR_NOMEM = -1, // Not enough tokens were provided
+	PARCEL_ERROR_INVAL = -2, // Invalid character inside JSON string
+	PARCEL_ERROR_PART = -3, // The string is not a full JSON packet, more bytes expected
+	PARCEL_SUCCESS = 0 // Everthing is fine
+} ParcelError;
 
 /**
  * JSON token description.
@@ -33,12 +33,12 @@ typedef enum
  */
 typedef struct
 {
-	JsonType type;
+	ParcelType type;
 	intmax_t start;
 	intmax_t end;
 	intmax_t size;
 	intmax_t parent;
-} __attribute__((__packed__)) JsonToken;
+} __attribute__((__packed__)) ParcelToken;
 
 /**
  * JSON parser. Contains an array of token blocks available. Also stores
@@ -52,18 +52,18 @@ typedef struct
 	intmax_t pos;
 	intmax_t toknext;
 	intmax_t toksuper;
-} __attribute__((__packed__)) JsonParser;
+} __attribute__((__packed__)) ParcelParser;
 
 /**
- * Create JSON parser over an array of tokens
+ * Initializes the JSON parser over an array of tokens
  */
-void parcel_initParser(JsonParser *parser);
+void parcel_initParser(ParcelParser *parser);
 
 /**
  * Run JSON parser. It parses a JSON data string into and array of tokens, each describing
  * a single JSON object.
  */
-JsonError parcel_parse(JsonParser *parser, const char *js, JsonToken *tokens, unsigned int tokenNum);
+ParcelError parcel_parse(ParcelParser *parser, const char *js, ParcelToken *tokens, unsigned int tokenNum);
 
 /**
  * Fetch data from the given item in the supplied JSON file.

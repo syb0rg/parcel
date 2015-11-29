@@ -1,6 +1,11 @@
-# parcel [<img align="right"  src="https://travis-ci.org/syb0rg/parcel.svg?branch=master"/>](https://travis-ci.org/syb0rg/parcel)
+# parcel
+
+[![Build Status](https://travis-ci.org/syb0rg/parcel.svg?branch=master)](https://travis-ci.org/syb0rg/parcel)
+[![Code Review](http://www.zomis.net/codereview/shield/?qid=43872)](http://codereview.stackexchange.com/q/43872/27623)
 
 An efficient and functional JSON parsing library written in C.  parcel was designed to be small and portable for seamless integration will resource-constrained systems.
+
+***
 
 ### Features
 

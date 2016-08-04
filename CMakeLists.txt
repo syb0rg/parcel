@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.7)
+cmake_minimum_required(VERSION 3.1.0)
 set(PROJECT_NAME parcel)
 project(${PROJECT_NAME})
 
@@ -12,4 +12,4 @@ set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
 
 add_library(${PROJECT_NAME} parcel.c)
 
-set_property(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD 11)
+target_compile_features(${PROJECT_NAME} PRIVATE c_restrict)

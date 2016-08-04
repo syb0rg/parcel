@@ -44,5 +44,12 @@ matrix:
     - os: osx
       compiler: clang
       env: COMPILER=clang
-
+      
+before_install:
+  - |
+    if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
+        brew update && brew unlink cmake
+        brew install cmake
+    fi
+    
 script: mkdir build && cd build && cmake .. && make

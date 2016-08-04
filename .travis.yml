@@ -43,5 +43,6 @@ matrix:
       env: COMPILER=clang-3.7
     - os: osx
       compiler: clang
+      env: COMPILER=clang
 
 script: mkdir build && cd build && cmake .. && make

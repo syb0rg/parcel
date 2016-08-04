@@ -14,6 +14,8 @@ matrix:
             - gcc-4.9
             - cmake
             - cmake-data
+      git:
+        depth: 3
       env: COMPILER=gcc-4.9
     - os: linux
       compiler: gcc
@@ -26,6 +28,8 @@ matrix:
             - gcc-5
             - cmake
             - cmake-data
+      git:
+        depth: 3
       env: COMPILER=gcc-5
     - os: linux
       compiler: clang
@@ -39,6 +43,8 @@ matrix:
             - clang-3.6
             - cmake
             - cmake-data
+      git:
+        depth: 3
       env: COMPILER=clang-3.6
     - os: linux
       compiler: clang
@@ -52,6 +58,8 @@ matrix:
             - clang-3.7
             - cmake
             - cmake-data
+      git:
+        depth: 3
       env: COMPILER=clang-3.7
     - os: osx
       compiler: clang

@@ -13,10 +13,3 @@ set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -fprofile-arcs -ftest-covera
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
 
 add_library(${PROJECT_NAME} parcel.c)
-
-#[[
-set_property(TARGET ${PROJECT_NAME} 
-			PROPERTY C_STANDARD 99
-			PROPERTY C_STANDARD_REQUIRED TRUE
-)
-]]

@@ -64,6 +64,15 @@ matrix:
     - os: osx
       compiler: clang
       env: COMPILER=clang
+    - os: osx
+      osx_image: xcode6.4
+      env: COMPILER=xcode6.4
+    - os: osx
+      osx_image: xcode7.3
+      env: COMPILER=xcode7.3
+    - os: osx
+      osx_image: xcode8
+      env: COMPILER=xcode8
       
 before_install:
   - |
@@ -72,4 +81,8 @@ before_install:
         brew install cmake
     fi
     
-script: mkdir build && cd build && cmake .. && make
+script: 
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cmake --build .

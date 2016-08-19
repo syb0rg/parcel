@@ -1,11 +1,7 @@
-# parcel 
+# parcel |windows_build| |unix_build|
 
 
 An efficient and functional JSON parsing library written in C.  parcel was designed to be small and portable for seamless integration will resource-constrained systems.
-
-| Windows       | Unix          |
-| ------------- | ------------- |
-|[![Build status](https://ci.appveyor.com/api/projects/status/cw90pmj7f4gqjsof?svg=true)](https://ci.appveyor.com/project/syb0rg/parcel)|[![Build Status](https://travis-ci.org/syb0rg/parcel.svg?branch=master)](https://travis-ci.org/syb0rg/parcel)  |
 
 ***
 
@@ -92,3 +88,11 @@ This approach provides enough information for parsing any JSON data and makes it
  - Support Unicode characters.
  
  - Add example usage to README.
+
+.. |windowsFIX_build| image:: https://ci.appveyor.com/api/projects/status/cw90pmj7f4gqjsof?svg=true?style=flat-square&label=unix%20build
+    :target: https://ci.appveyor.com/project/syb0rg/parcel
+    :alt: Build status of the master branch on Windows
+
+.. |unix_build|  image:: https://travis-ci.org/syb0rg/parcel.svg?branch=master&style=flat-square&label=unix%20build
+    :target: https://travis-ci.org/syb0rg/parcel
+    :alt: Build status of the master branch on Mac/Linux

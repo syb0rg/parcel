@@ -3,6 +3,11 @@ os: Visual Studio 2015
 clone_folder: c:\projects\parcel
 platform: x64
 configuration: Release
+environment:
+  matrix:
+  - GENERATOR: MinGW Makefiles
+  - GENERATOR: Visual Studio 14 2015
+  - GENERATOR: Visual Studio 14 2015 Win64
 
 matrix:
   fast_finish: true
@@ -12,7 +17,7 @@ before_build:
  - set PATH=C:\MinGW\bin;%PATH%
  - mkdir c:\projects\parcel\build
  - cd c:\projects\parcel\build
- - cmake -G "MinGW Makefiles" ..
+ - cmake -G "%GENERATOR%" ..
 
 build_script:
  - cmake --build .

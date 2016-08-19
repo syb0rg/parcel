@@ -12,5 +12,5 @@ before_build:
  - cd c:\projects\parcel\build
  - cmake -G "MinGW Makefiles" ..
 
-build:
+build_script:
  - cmake --build .

@@ -1,5 +1,5 @@
 # minimum required version for C_STANDARD
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.1.3)
 set(PROJECT_NAME parcel)
 project(${PROJECT_NAME})
 

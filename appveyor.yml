@@ -17,6 +17,7 @@ before_build:
  - set PATH=C:\MinGW\bin;%PATH%
  - mkdir c:\projects\parcel\build
  - cd c:\projects\parcel\build
+ - cmake --version
  - cmake -G "%GENERATOR%" ..
 
 build_script:

@@ -12,4 +12,9 @@ set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
 
 add_library(${PROJECT_NAME} parcel.c)
 
-target_compile_features(${PROJECT_NAME} PRIVATE c_restrict)
+set_property(TARGET ${PROJECT_NAME} 
+			PROPERTY
+			POSITION_INDEPENDENT_CODE TRUE
+			C_STANDARD 99
+			C_STANDARD_REQUIRED TRUE
+)

@@ -8,11 +8,9 @@ matrix:
   fast_finish: true
 
 before_build:
- - echo %path%
  - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
  - set PATH=C:\MinGW\bin;%PATH%
  - mkdir c:\projects\parcel\build
- - echo %path%
  - cd c:\projects\parcel\build
  - cmake -G "MinGW Makefiles" ..
 

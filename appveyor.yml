@@ -10,7 +10,7 @@ environment:
   - GENERATOR: Visual Studio 14 2015 Win64
 
 matrix:
-  fast_finish: true
+  fast_finish: false
 
 before_build:
  - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%

@@ -6,7 +6,6 @@
 #define PARCEL_H
 
 #include <stdint.h>
-#include <unistd.h>
 
 /**
  * JSON type identifier. Basic types are:

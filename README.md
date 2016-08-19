@@ -1,7 +1,7 @@
 # parcel 
 
-[![Build status](https://img.shields.io/appveyor/ci/syb0rg/parcel.svg?style=flat-square&label=windows%20build)](https://ci.appveyor.com/project/syb0rg/parcel)
-[![Build Status](https://img.shields.io/travis/syb0rg/parcel/master.svg?style=flat-square&label=unix%20build)](https://travis-ci.org/syb0rg/parcel)
+[![Build status](https://img.shields.io/appveyor/ci/syb0rg/parcel.svg?style=flat&label=windows%20build)](https://ci.appveyor.com/project/syb0rg/parcel)
+[![Build Status](https://img.shields.io/travis/syb0rg/parcel/master.svg?style=flat&label=unix%20build)](https://travis-ci.org/syb0rg/parcel)
 
 An efficient and functional JSON parsing library written in C.  parcel was designed to be small and portable for seamless integration will resource-constrained systems.
 

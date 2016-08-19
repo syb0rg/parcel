@@ -37,7 +37,7 @@ typedef struct
 	intmax_t end;
 	intmax_t size;
 	intmax_t parent;
-} __attribute__((__packed__)) ParcelToken;
+} ParcelToken;
 
 /**
  * JSON parser. Contains an array of token blocks available. Also stores
@@ -51,7 +51,7 @@ typedef struct
 	intmax_t pos;
 	intmax_t toknext;
 	intmax_t toksuper;
-} __attribute__((__packed__)) ParcelParser;
+} ParcelParser;
 
 /**
  * Initializes the JSON parser over an array of tokens
@@ -70,4 +70,4 @@ ParcelError parcel_parse(ParcelParser *parser, const char *js, ParcelToken *toke
 const char* parcel_getItemFromJSON(const char *json, const char *item);
 
 
-#endif // _parcel_H_
+#endif // PARCEL_H

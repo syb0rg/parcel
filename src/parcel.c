@@ -1,3 +1,5 @@
+#define _XOPEN_SOURCE
+
 /**
  * @file json.c
  * @brief JSON Parser
@@ -291,4 +293,3 @@ void parcel_initParser(ParcelParser *parser)
 	parser->toknext = 0;
 	parser->toksuper = -1;
 }
-

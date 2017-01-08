@@ -5,8 +5,3 @@ set (PARCEL_SOURCE_FILES
     )
 
 add_library(source OBJECT ${PARCEL_SOURCE_FILES})
-set_property(TARGET source
-            PROPERTY POSITION_INDEPENDENT_CODE TRUE
-            PROPERTY C_STANDARD 99
-            PROPERTY C_STANDARD_REQUIRED TRUE
-            )

@@ -89,6 +89,10 @@ script:
   - cd build
   - cmake ..
   - cmake --build .
+  - |
+    if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+        gcov ../src/parcel.c
+    fi
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

@@ -1,6 +1,6 @@
 sudo: false
 language: c
-  
+
 matrix:
   include:
     - os: linux
@@ -76,16 +76,19 @@ matrix:
       git:
         depth: 3
       env: COMPILER=xcode7.3
-      
+
 before_install:
   - |
     if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
         brew update && brew unlink cmake
         brew install cmake
     fi
-    
-script: 
+
+script:
   - mkdir build
   - cd build
   - cmake ..
   - cmake --build .
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

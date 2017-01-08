@@ -89,7 +89,7 @@ script:
   - cd build
   - cmake ..
   - cmake --build .
-  - gcov ../src/parcel.c
+  - gcov -o ../src/ ../src/*.c
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

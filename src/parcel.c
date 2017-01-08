@@ -1,5 +1,4 @@
-#define _XOPEN_SOURCE
-#define _XOPEN_SOURCE_EXTENDED
+#define _XOPEN_SOURCE 700
 /**
  * @file json.c
  * @brief JSON Parser

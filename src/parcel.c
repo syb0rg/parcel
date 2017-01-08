@@ -1,4 +1,5 @@
-#define _XOPEN_SOURCE 700
+#define _XOPEN_SOURCE
+#define _XOPEN_SOURCE_EXTENDED
 /**
  * @file json.c
  * @brief JSON Parser
@@ -32,7 +33,7 @@ const char* parcel_getItemFromJSON(const char *json, const char *item)
 		if (!memcmp(item, &json[key->start], (size_t) (key->end - key->start)))
 		{
 			++key;
-			return strndup(&json[key->start], (size_t) (key->end - key->start));
+			return strdup(&json[key->start]);
 		}
 	}
 	return NULL;
